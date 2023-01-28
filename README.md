@@ -1,15 +1,23 @@
 # TF2MD
 A readme generator for terraform code.
 
+## About
+
+Have you ever wanted to generate markdown documentation based on `variables.tf` or `outputs.tf` files?
+This tool aims to solve that.
 
 # Usage
 
-Run the command and point it to either a variable file or an output file
-
+Install the program
 ```
-tf2md gen-docs --file-type output terraform/outputs.tf
+pip install tf2md
 ```
 
-Please note to include the `--file-type` as either `output` or `variable`
+Run the program <Where `terraform/outputs.tf` is the path to my file>:
+```
+tf2md gen-docs terraform/outputs.tf
+```
 
-Right now it does not work if you have a mixture of variables and outputs in the same file.
+Note: This does not work on `tf` files that have a mix of `outputs` and `variables`.
+
+See the `./examples` dir for examples of generated code.

@@ -7,6 +7,16 @@ def open_file(file: str) -> dict:
         return hcl2.load(tf_file)
 
 
+def get_tf_file_type(hcl_dict: dict) -> str:
+    """
+    Read a HCL dict and determine if its a variable file or a outputs file
+    """
+    file_types = ["variable", "output"]
+    for item in hcl_dict:
+        file_type = item
+    if file_type not in file_types:
+        raise ValueError("Invalid file type. Expected one of: %s" % file_types)
+    return file_type
 
 
 def parse_hcl(hcl_dict: dict, file_type: str) -> "list[dict]":
@@ -14,11 +24,6 @@ def parse_hcl(hcl_dict: dict, file_type: str) -> "list[dict]":
     Parses the HCL dict given to the function.
     If output file type, will get the name and description
     """
-
-    # Check if file type passed in is valid
-    file_types = ["variable", "output"]
-    if file_type not in file_types:
-        raise ValueError("Invalid file type. Expected one of: %s" % file_types)
 
     # Create an empty list to store the final dicts
     final_list = []

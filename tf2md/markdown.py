@@ -14,7 +14,7 @@ def create_output_file(outputs: "list[dict]", output_file: str = "Outputs"):
     for output in outputs:
         name = output["name"]
         description = output["description"]
-        table_data.extend([name, description])
+        table_data.extend([f"`{name}`", description])
     rows = len(table_data) / 2
     md_file.new_table(columns=2, rows=int(rows), text=table_data, text_align="center")
     md_file.create_md_file()
