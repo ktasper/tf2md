@@ -39,9 +39,7 @@ def create_variables_file(variables: "list[dict]", variable_file: str = "Variabl
         # Clean up the var type
         var_type = variable["type"]
         if var_type:
-            var_type = var_type.replace("$", "")
-            var_type = var_type.replace("{", "")
-            var_type = var_type.replace("}", "")
+            var_type = tf_var_type_cleaner(var_type)
         default = variable["default"]
         # If the variable has no default its required to be set
         if not default:
@@ -65,9 +63,7 @@ def create_variables_file(variables: "list[dict]", variable_file: str = "Variabl
         # Clean up the var type
         var_type = variable["type"]
         if var_type:
-            var_type = var_type.replace("$", "")
-            var_type = var_type.replace("{", "")
-            var_type = var_type.replace("}", "")
+            var_type = tf_var_type_cleaner(var_type)
         default = variable["default"]
         # If the variable has no default its required to be set
         if default:
@@ -79,3 +75,11 @@ def create_variables_file(variables: "list[dict]", variable_file: str = "Variabl
         columns=columns, rows=int(rows), text=table_data, text_align="center"
     )
     md_file.create_md_file()
+
+
+
+def tf_var_type_cleaner(var_type: str) -> str:
+    var_type = var_type.replace("$", "")
+    var_type = var_type.replace("{", "")
+    var_type = var_type.replace("}", "")
+    return var_type

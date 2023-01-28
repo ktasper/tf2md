@@ -5,8 +5,8 @@ from tf2md.parser import open_file, parse_hcl
 @click.group()
 @click.version_option("1.0.0")
 def main():
-  """Terraform to markdown"""
-  pass
+    """Terraform to markdown"""
+
 
 @main.command()
 @click.option(

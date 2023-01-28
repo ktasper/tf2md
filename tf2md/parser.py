@@ -7,6 +7,8 @@ def open_file(file: str) -> dict:
         return hcl2.load(tf_file)
 
 
+
+
 def parse_hcl(hcl_dict: dict, file_type: str) -> "list[dict]":
     """
     Parses the HCL dict given to the function.
