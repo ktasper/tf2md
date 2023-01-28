@@ -1,3 +1,4 @@
+"""This parses HCL files"""
 import hcl2
 def open_file(file: str) -> dict:
     """
