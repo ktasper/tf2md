@@ -26,6 +26,7 @@ rfc3986==2.0.0
 rich==13.3.0
 SecretStorage==3.3.3
 six==1.16.0
+-e git+ssh://git@github.com/ktasper/tf2md.git@eaced53edcb9fef33d7e43f97633dbb079c9470b#egg=tf2md
 twine==4.0.2
 urllib3==1.26.14
 webencodings==0.5.1
