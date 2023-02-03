@@ -12,7 +12,7 @@ README = (HERE / "README.md").read_text()
 setup (
  name = 'tf2md',
  description = 'A simple commandline app for generating terraform docs',
- version = '1.0.1',
+ version = '1.0.2',
  packages = find_packages(), # list of all packages
  install_requires = ['mdutils', 'python-hcl2', 'click'],
  python_requires='>=3.5', # any python greater than 2.7

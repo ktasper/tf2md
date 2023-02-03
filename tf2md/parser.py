@@ -13,8 +13,7 @@ def get_tf_file_type(hcl_dict: dict) -> str:
     Read a HCL dict and determine if its a variable file or a outputs file
     """
     file_types = ["variable", "output"]
-    for item in hcl_dict:
-        file_type = item
+    file_type = next(iter(hcl_dict), None)
     if file_type not in file_types:
         raise ValueError("Invalid file type. Expected one of: %s" % file_types)
     return file_type
@@ -26,46 +25,27 @@ def parse_hcl(hcl_dict: dict, file_type: str) -> "list[dict]":
     If output file type, will get the name and description
     """
 
-    # Create an empty list to store the final dicts
+    # Create a dictionary to store the default values
+    default_values = {
+        "description": None,
+        "type": None,
+        "default": None,
+        "nullable": False
+    }
+
     final_list = []
-
-    for item in hcl_dict[file_type]:
-        # Create a dict to store the info
-        temp_dict = {}
+    for item in hcl_dict.get(file_type, []):
         name = list(item.keys())[0]
-        temp_dict["name"] = name
-        # We can only guarantee that a variable has a name.
-        # Not every entry has a default type
-        try:
-            description = item[name]["description"]
-        except KeyError:
-            description = None
-        temp_dict["description"] = description
+        temp_dict = {
+            "name": name,
+            "description": item[name].get("description", default_values["description"]),
+        }
 
-        # If we are working with a variable file type, there are more fields to extract
         if file_type == "variable":
-            # Not every entry has a  type
-            try:
-                var_type = item[name]["type"]
-            except KeyError:
-                var_type = None
-            temp_dict["type"] = var_type
-
-            # Not every entry has a default
-            try:
-                var_default = item[name]["default"]
-            except KeyError:
-                var_default = None
-            temp_dict["default"] = var_default
-
-            # If the variable can be nullable return that, else it cannot be nullable
-            try:
-                nullable = item[name]["nullable"]
-                nullable = True
-            except KeyError:
-                nullable = False
-            temp_dict["nullable"] = nullable
-
-        # Append the dict to the list
+            temp_dict.update({
+                "type": item[name].get("type", default_values["type"]),
+                "default": item[name].get("default", default_values["default"]),
+                "nullable": item[name].get("nullable", default_values["nullable"]),
+            })
         final_list.append(temp_dict)
     return final_list

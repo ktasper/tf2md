@@ -83,12 +83,6 @@ def create_variables_file(variables: "list[dict]", variable_file: str = "Variabl
     md_file.create_md_file()
 
 
+
 def tf_var_type_cleaner(var_type: str) -> str:
-    """
-    This is a helper function that strips the extra chars that gets added to
-    the type defintions
-    """
-    var_type = var_type.replace("$", "")
-    var_type = var_type.replace("{", "")
-    var_type = var_type.replace("}", "")
-    return var_type
+    return var_type.translate(str.maketrans("", "", "${}"))
